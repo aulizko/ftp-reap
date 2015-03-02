@@ -1,0 +1,46 @@
+{
+  "name": "ftp-reap",
+  "version": "1.0.0",
+  "description": "file cleanup based on last modified date via ftp",
+  "main": "lib/reaper.js",
+  "scripts": {
+    "compile": "babel --experimental --optional runtime -d lib/ src/",
+    "prepublish": "npm run compile",
+    "test": "mocha --require test/babelhook --reporter spec --compilers es6.js:babel/register",
+    "test-travis": "node --harmony node_modules/istanbul-harmony/lib/cli.js cover _mocha --report lcovonly --hook-run-in-context -- --require test/babelhook --compilers es6.js:babel/register --reporter dot"
+  },
+  "keywords": [
+    "ftp",
+    "cleanup",
+    "reap",
+    "aws",
+    "delete"
+  ],
+  "homepage": "https://github.com/aulizko/ftp-reap",
+  "author": "Alexander Ulizko <alexander@ulizko.com> (http://ulizko.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "babel-runtime": "^4.6.5",
+    "chalk": "^1.0.0",
+    "flatten": "0.0.1",
+    "ftp": "^0.3.8",
+    "ms": "^0.7.0"
+  },
+  "devDependencies": {
+    "babel": "^4.6.1",
+    "chai": "^2.1.0",
+    "istanbul-harmony": "^0.3.1",
+    "lodash": "^3.3.1",
+    "mocha": "^2.1.0",
+    "native-or-bluebird": "^1.2.0",
+    "sinon": "^1.12.2",
+    "sinon-chai": "^2.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:aulizko/ftp-reap.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aulizko/ftp-reap/issues"
+  }
+}
