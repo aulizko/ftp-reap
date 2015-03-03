@@ -2,7 +2,7 @@
   "name": "ftp-reap",
   "version": "1.0.0",
   "description": "file cleanup based on last modified date via ftp",
-  "main": "lib/reaper.js",
+  "main": "lib/reaper.es6.js",
   "scripts": {
     "compile": "babel --experimental --optional runtime -d lib/ src/",
     "prepublish": "npm run compile",
