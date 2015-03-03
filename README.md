@@ -5,6 +5,30 @@
 
 Delete files over ftp based on last modified date.
 
+## Usage
+
+```js
+var Reaper = require('ftp-reap');
+var reaper = new Reaper();
+
+reaper.maxAge('2 weeks'); // delete files older then two weeks
+
+reaper.watch({
+    host: 'my.awesome.bucket',
+    user: 'user',
+    password: 'password'
+});
+
+reaper
+    .run()
+    .then(function () {
+        // do something good
+    })
+    .catch(function (err) {
+        // do something with error
+    });
+```
+
 ## API
 
 Note: API intentionally are the same as that of the [fs-reap][fs-reap-url].
@@ -57,10 +81,10 @@ Set the max age based on last modified time for deletion, defaulting to `Infinit
 You may use `Integer` to specify milliseconds, or human-readable string format like `3 days` or `2 months`.
 For more details look at [ms][ms-url] API.
 
-### reaper.run().then( => )
+### reaper.run().then( => ).catch(err =>)
 
 Recursively iterate through directories and delete old files.
-Directories structure are preserved.
+Directories structure are safe. Folders and symlinks (UNIX systems only) are ignored.
 
 FTP connections runs in parallel, so you shouldn't see significant perfomance loss.
 
