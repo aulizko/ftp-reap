@@ -25,11 +25,11 @@ describe('Reaper', function () {
 
     describe('#constructor()', function () {
         it('should create inner workers property', function () {
-            expect(reaper.workers).to.not.be.undefined;
+            expect(reaper.workers).to.not.be.an('undefined');
             expect(reaper.workers).to.be.an.instanceof(Array);
         });
         it('should create __maxAge inner property', function () {
-            expect(reaper.__maxAge).to.not.be.undefined;
+            expect(reaper.__maxAge).to.not.be.an('undefined');
             expect(reaper.__maxAge).to.equal(null);
         });
     });

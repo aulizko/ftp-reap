@@ -49,11 +49,8 @@ export default class FtpWorker {
 
     async __reapDirectory(currentWorkingDirectory) {
         let listOfDirectoryContent;
-        try {
-            listOfDirectoryContent = await this.__listDirectory(currentWorkingDirectory);
-        } catch (listDirectoryError) {
-            console.log(chalk.red(listDirectoryError));
-        }
+        listOfDirectoryContent = await this.__listDirectory(currentWorkingDirectory);
+        // let list directory error to bubble into reaper
 
         return Promise.all(listOfDirectoryContent.map(async (file) => {
             return await this.__processFile(file, currentWorkingDirectory);;
@@ -67,7 +64,7 @@ export default class FtpWorker {
         if (file.type === '-') { // if not file do nothing
             let filePathWithDirectory = path.resolve(currentWorkingDirectory, file.name);
             if (this.__judge(file)) {
-                console.log(chalk.yellow(`Deleting file ${filePathWithDirectory}`));
+                console.log(chalk.yellow(`Deleting file ftp://${this.connection.host}${filePathWithDirectory}`));
                 try {
                     return await this.__deleteFile(filePathWithDirectory);
                 } catch (deleteFileError) {

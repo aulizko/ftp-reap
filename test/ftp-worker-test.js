@@ -83,26 +83,23 @@ describe('Worker', function () {
         });
 
         it('should return true, if file date property is too old', function () {
-            var files = helpers.createSetOfDummyFiles(5);
+            var file = {
+                date: new Date('2012-05-19T00:00')
+            };
+
             worker.maxAge = 10;
 
-            files.forEach(function (file) {
-                expect(worker.__judge(file)).to.equal(true);
-            });
+            expect(worker.__judge(file)).to.equal(true);
         });
 
         it('should return false, if file date is not too old', function () {
-            var files = helpers.createSetOfDummyFiles(5);
+            var file = {
+                date: new Date()
+            };
 
-            files = files.map(function (file) {
-                file.date = Date.now();
+            worker.maxAge = 3000;
 
-                return file;
-            });
-
-            files.forEach(function (file) {
-                expect(worker.__judge(file)).to.equal(false);
-            });
+            expect(worker.__judge(file)).to.equal(false);
         });
     });
 
@@ -114,12 +111,12 @@ describe('Worker', function () {
             expect(worker.run()).to.respondTo('then');
         });
 
-        it('should install listeners on FtpClient instance events', function () {
+        it('should install listeners on FtpClient instance events', function (done) {
             var worker = new FtpWorker({host: 'ftp.mozilla.org'});
             var connectStub = sinon.stub(worker.client, 'connect');
             var onStub = sinon.stub(worker.client, 'on');
 
-            worker.run();
+            worker.run(); // no need for asynchronous check
 
             expect(connectStub).to.have.callCount(1);
 
@@ -130,6 +127,7 @@ describe('Worker', function () {
 
             connectStub.restore();
             onStub.restore();
+            done();
         });
     });
 
@@ -140,14 +138,17 @@ describe('Worker', function () {
             worker = new FtpWorker({host: 1});
         });
 
-        it('should call __listDirectory once', function () {
+        it('should call __listDirectory once', function (done) {
             var listDirectoryStub = sinon.stub(worker, '__listDirectory');
+            listDirectoryStub.returns([]);
 
-            worker.__reapDirectory('/');
+            worker.__reapDirectory('/').then(function () {
+                expect(listDirectoryStub).to.have.callCount(1);
+                expect(listDirectoryStub).to.have.calledWith('/');
 
-            expect(listDirectoryStub).to.be.callCount(1);
-            expect(listDirectoryStub).to.be.calledWith('/');
-            listDirectoryStub.restore();
+                listDirectoryStub.restore();
+                done();
+            }).catch(done);
         });
 
         it('should call __processFile on every file that __listDirectory returned', function (done) {
@@ -230,6 +231,21 @@ describe('Worker', function () {
                 deleteFileStub.restore();
                 done();
             }).catch(done);
+        });
+
+        it('should pass list directory error on the level higher', function (done) {
+            var listDirectoryStub = sinon.stub(worker, '__listDirectory');
+            listDirectoryStub.throws(new Error('list directory error'));
+
+            worker.__reapDirectory('/').then(function () {
+                // o_O look, no error, ma!
+                done(new Error('Test failed'));
+            }).catch(function (err) {
+                expect(err).to.not.be.an('undefined');
+                expect(err.message).to.equal('list directory error');
+                listDirectoryStub.restore();
+                done();
+            });
         });
     });
 
