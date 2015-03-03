@@ -1,5 +1,8 @@
 # ftp-reap
 
+[![Build status][travis-image]][travis-url]
+[![Test coverage][coveralls-image]][coveralls-url]
+
 Delete files over ftp based on last modified date.
 
 ## API
@@ -90,3 +93,7 @@ THE SOFTWARE.
 [ftp-url]: https://www.npmjs.com/package/ftp#methods
 [ulizko-url]: http://ulizko.com
 [mail-link]: mailto:alexander@ulizko.com
+[travis-image]: https://img.shields.io/travis/aulizko/ftp-reap.svg?style=flat-square
+[travis-url]: https://travis-ci.org/aulizko/ftp-reap
+[coveralls-image]: https://img.shields.io/coveralls/aulizko/ftp-reap.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/aulizko/ftp-reap
