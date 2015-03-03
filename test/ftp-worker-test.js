@@ -164,6 +164,10 @@ describe('Worker', function () {
             }).catch(done);
         });
 
+        it('should return thenable object', function () {
+            expect(worker.run()).to.respondTo('then');
+        });
+
         it('should call __processFile on every file that __listDirectory returned', function (done) {
             var files = helpers.createSetOfDummyFiles(5);
 
@@ -284,6 +288,26 @@ describe('Worker', function () {
                 reapDirectoryStub.restore();
                 done();
             });
+        });
+
+        it('should correctly generate path to child file of the folder', function (done) {
+            var file = {
+                type: '-',
+                name: 'nyan_cat.jpg',
+                date: new Date('2012-05-19T00:00')
+            };
+            worker.maxAge = 200;
+            var deleteFileStub = sinon.stub(worker, '__deleteFile');
+            deleteFileStub.returns(true);
+
+            worker.__processFile(file, '/tmp').then(function (result) {
+                expect(result).to.equal(true);
+                expect(deleteFileStub).to.have.callCount(1);
+                expect(deleteFileStub).to.have.calledWith('/tmp/nyan_cat.jpg');
+
+                deleteFileStub.restore();
+                done();
+            }).catch(done);
         });
 
         it('should return false on files that are not too old', function (done) {
