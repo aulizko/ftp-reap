@@ -65,12 +65,8 @@ export default class FtpWorker {
             let filePathWithDirectory = path.resolve(currentWorkingDirectory, file.name);
             if (this.__judge(file)) {
                 console.log(chalk.yellow(`Deleting file ftp://${this.connection.host}${filePathWithDirectory}`));
-                try {
-                    return await this.__deleteFile(filePathWithDirectory);
-                } catch (deleteFileError) {
-                    console.log(chalk.red(deleteFileError));
-                    return false;
-                }
+                // let possible file deletion error bubble up
+                return await this.__deleteFile(filePathWithDirectory);
             } else {
                 return false;
             }

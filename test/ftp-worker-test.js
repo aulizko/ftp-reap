@@ -129,6 +129,19 @@ describe('Worker', function () {
             onStub.restore();
             done();
         });
+
+        it('should call ftp#connect() method', function (done) {
+            var worker = new FtpWorker({host: 'ftp.mozilla.org'});
+            var connectStub = sinon.stub(worker.client, 'connect', function () {worker.client.emit('end');});
+
+            worker.run().then(function (result) {
+                expect(result).to.equal(true);
+                expect(connectStub).to.have.callCount(1);
+
+                connectStub.restore();
+                done();
+            }).catch(done);
+        });
     });
 
     describe('#__reapDirectory()', function () {
@@ -258,8 +271,10 @@ describe('Worker', function () {
 
         it('should call __reapDirectory on directory entry', function (done) {
             var reapDirectoryStub = sinon.stub(worker, '__reapDirectory');
-            var dummyFolder = helpers.createDummyFolder();
-            dummyFolder.name = 'tmp';
+            var dummyFolder = {
+                name: 'tmp',
+                type: 'd'
+            };
             reapDirectoryStub.withArgs('/tmp').returns([]);
 
             worker.__processFile(dummyFolder, '/').then(function () {
@@ -298,6 +313,34 @@ describe('Worker', function () {
                 deleteFileStub.restore();
                 done();
             });
+        });
+    });
+
+    describe('#deleteFile()', function () {
+        it('should not swallow file delete error', function (done) {
+            var worker = new FtpWorker({host: 1});
+            var deleteFileStub = sinon.stub(worker, '__deleteFile');
+            deleteFileStub.throws(new Error('delete file error'));
+
+            var file = {
+                name: 'aaa',
+                date: new Date('2012-05-19T00:00'),
+                type: '-'
+            };
+            worker.maxAge = 1000;
+
+            worker.__processFile(file, '/')
+                .then(function () {
+                    // o_O we shouldn't get here
+                    done(new Error('Test error'));
+                })
+                .catch(function (err) {
+                    expect(err).to.not.be.an('undefined');
+                    expect(err.message).to.equal('delete file error');
+
+                    deleteFileStub.restore();
+                    done();
+                });
         });
     });
 });

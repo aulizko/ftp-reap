@@ -1,6 +1,6 @@
 {
   "name": "ftp-reap",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "file cleanup based on last modified date via ftp",
   "main": "lib/reaper.es6.js",
   "scripts": {
