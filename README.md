@@ -1,7 +1,12 @@
 # ftp-reap
 
+[![NPM version][npm-image]][npm-url]
 [![Build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
+[![Dependency Status][david-image]][david-url]
+[![License][license-image]][license-url]
+[![Downloads][downloads-image]][downloads-url]
+[![Gittip][gittip-image]][gittip-url]
 
 Delete files over ftp based on last modified date.
 
@@ -121,3 +126,13 @@ THE SOFTWARE.
 [travis-url]: https://travis-ci.org/aulizko/ftp-reap
 [coveralls-image]: https://img.shields.io/coveralls/aulizko/ftp-reap.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/aulizko/ftp-reap
+[npm-image]: https://img.shields.io/npm/v/ftp-reap.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/ftp-reap
+[david-image]: http://img.shields.io/david/aulizko/ftp-reap.svg?style=flat-square
+[david-url]: https://david-dm.org/aulizko/ftp-reap
+[license-image]: http://img.shields.io/npm/l/ftp-reap.svg?style=flat-square
+[license-url]: LICENSE
+[downloads-image]: http://img.shields.io/npm/dm/ftp-reap.svg?style=flat-square
+[downloads-url]: https://npmjs.org/package/ftp-reap
+[gittip-image]: https://img.shields.io/gratipay/aulizko.svg?style=flat-square
+[gittip-url]: https://gratipay.com/aulizko/
