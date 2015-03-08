@@ -53,12 +53,12 @@ For more details about possible connection properties, look at [ftp#connect() AP
 
 ```js
 reaper.watch({
-    connection: 'n.n.n.n',
+    host: 'n.n.n.n',
     port: 42,
     path: '/path/to/my/files'
 });
 reaper.watch({
-    connection: 'other_host',
+    host: 'other_host',
     port: 21,
     path: '/path/to/my/other/files'
 });
@@ -67,12 +67,12 @@ reaper.watch({
 
 reaper.watch(
     {
-        connection: 'n.n.n.n',
+        host: 'n.n.n.n',
         port: 42,
         path: '/path/to/my/files'
     },
     {
-        connection: 'other_host',
+        host: 'other_host',
         port: 21,
         path: '/path/to/my/other/files'
     }
