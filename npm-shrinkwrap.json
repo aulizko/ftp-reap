@@ -1,6 +1,6 @@
 {
   "name": "ftp-reap",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "dependencies": {
     "babel-runtime": {
       "version": "4.7.1",
