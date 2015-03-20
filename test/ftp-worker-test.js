@@ -11,7 +11,7 @@ var expect = chai.expect;
 var sinonChai = require('sinon-chai');
 chai.use(sinonChai);
 /*eslint-disable no-undef*/
-var Promise = require('native-or-bluebird');
+var Promise = require('bluebird');
 /*eslint-enable no-undef*/
 var path = require('path');
 

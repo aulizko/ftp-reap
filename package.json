@@ -20,21 +20,21 @@
   "author": "Alexander Ulizko <alexander@ulizko.com> (http://ulizko.com/)",
   "license": "MIT",
   "dependencies": {
-    "babel-runtime": "^4.7.1",
-    "chalk": "^1.0.0",
+    "babel-runtime": "4.7.1",
+    "chalk": "1.0.0",
     "flatten": "0.0.1",
-    "ftp": "^0.3.8",
-    "ms": "^0.7.0"
+    "ftp": "0.3.8",
+    "ms": "0.7.0"
   },
   "devDependencies": {
-    "babel": "^4.7.1",
-    "chai": "^2.1.0",
-    "istanbul-harmony": "^0.3.1",
-    "lodash": "^3.3.1",
-    "mocha": "^2.1.0",
-    "native-or-bluebird": "^1.2.0",
-    "sinon": "^1.12.2",
-    "sinon-chai": "^2.7.0"
+    "babel": "4.7.1",
+    "chai": "2.1.0",
+    "istanbul-harmony": "0.3.1",
+    "lodash": "3.3.1",
+    "mocha": "2.1.0",
+    "bluebird": "2.9.13",
+    "sinon": "1.12.2",
+    "sinon-chai": "2.7.0"
   },
   "repository": {
     "type": "git",
